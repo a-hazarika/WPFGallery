@@ -1,0 +1,66 @@
+﻿<Window x:Class="QuizAttempt2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AbhilashSpiraeQuiz" MinWidth="444" MinHeight="250" Height="350" Width="525" BorderBrush="BlueViolet" BorderThickness="2" Margin="3" Padding="5">
+
+    <Window.Resources>
+        <Style x:Key="roundedButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bdr" CornerRadius="10" BorderThickness="2" BorderBrush="Blue" Background="DarkBlue">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" TextElement.Foreground="White"></ContentPresenter>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bdr" Property="Background" Value="#FF4A63CE"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="comboBoxStyle" TargetType="ComboBox">
+            <Setter x:Name="bg" Property="Background" Value="White"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,0,0,0">
+            <Button Style="{StaticResource roundedButton}" Name="addButton" Height="40" Width="50" Margin="5,0,0,0" HorizontalAlignment="Left" Click="addButton_Click">Add</Button>
+            <Button Style="{StaticResource roundedButton}"  Name="removeButton" Height="40" Width="70" Margin="5,0,0,0" HorizontalAlignment="Left" Click="removeButton_Click">Remove</Button>
+            <Button Style="{StaticResource roundedButton}" Name="removeDuplicateButton" Height="40" Width="80" Margin="5,0,0,0" HorizontalAlignment="Left" Click="removeDuplicateButton_Click">
+                <TextBlock Foreground="White" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">Remove Duplicate</TextBlock>
+            </Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" FontSize="14" Foreground="DarkBlue" FontWeight="Bold">Sort By</TextBlock>
+            <ComboBox Focusable="False" Style="{StaticResource comboBoxStyle}" Grid.Row="0" Height="40" Name="comboBox1" Margin="0,0,5,0" Width="120" HorizontalAlignment="Right" VerticalContentAlignment="Center" SelectionChanged="comboBox1_SelectionChanged" FontSize="14" Foreground="DarkBlue">
+                <ComboBoxItem>Name</ComboBoxItem>
+                <ComboBoxItem>Size</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+
+        <ListBox Grid.Row="1" BorderThickness="2" BorderBrush="DarkBlue" Name="listBox" ItemsSource="{Binding}" MouseDown="listBox_MouseDown" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <Image Source="{Binding location}" HorizontalAlignment="Center" Height="100" Width="100"/>
+                        <TextBlock Text="{Binding name}" HorizontalAlignment="Center" Margin="0,2,0,0"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+    </Grid>
+</Window>
